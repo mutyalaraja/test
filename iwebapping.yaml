@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-ing
+  namespace: test
+spec:
+  rules:
+  - host: test.webapp.com
+    http:
+      paths:
+      - backend:
+          serviceName: dashboard
+          servicePort: 8081
+        path: /
+status:
+  loadBalancer:
+    ingress:
+    - ip: provides the ip of loadbalance 
+
