@@ -37,3 +37,4 @@ kubectl run webapp \
   kubectl scale deployment hello-java --replicas=3 -n test
   To view the pods and deployment
    kubectl get deployment
+   
