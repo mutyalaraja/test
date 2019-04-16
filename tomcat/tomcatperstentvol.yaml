@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tomcat-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      serviceAccountName: tomcat
+      containers:
+      - name: tomcat
+        image: xxxxd/cicd-docker:tomcat
+        resources:
+            limits:
+              cpu: 2
+              memory: 4Gi
+            requests:
+              cpu: 1
+              memory: 1Gi
+        env:
+          - name: tomcat_HOME
+            value: /usr/local/tomcat/webapps/
+        ports:
+          - name: http-port
+            containerPort: 8080
+          
+        volumeMounts:
+          - name: tomcat-persistent-storage
+            mountPath: /usr/local/tomcat/webapps/
+      volumes:
+      - name: tomcat-persistent-storage
+        persistentVolumeClaim:
+           claimName: tomcat
